@@ -7,9 +7,6 @@
 	"settings": {
 		"editor.defaultFormatter": "Dart-Code.dart-code",
 		"editor.formatOnSave": true,
-		"[yaml]": {
-			"editor.defaultFormatter": "redhat.vscode-yaml"
-		},
 		"[jsonc]": {
 			"editor.defaultFormatter": "vscode.json-language-features"
 		},
