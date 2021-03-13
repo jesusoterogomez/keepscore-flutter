@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:keepscore/pages/profile.dart';
 
 class AppContainer extends StatelessWidget {
   // This widget is the root of your application.
@@ -18,7 +19,8 @@ class AppContainer extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Keepscore'),
+      home: ProfilePage(),
+      // home: MyHomePage(title: 'Keepscore'),
     );
   }
 }

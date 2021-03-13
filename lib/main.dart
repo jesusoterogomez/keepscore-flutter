@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:keepscore/app.dart';
-
-// Import the firebase_core plugin
 import 'package:firebase_core/firebase_core.dart';
+
+import 'package:keepscore/app.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,13 +10,12 @@ void main() {
 
 class App extends StatelessWidget {
   // Create the initialization Future outside of `build`:
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+  final Future<FirebaseApp> flutterFireInit = Firebase.initializeApp();
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      // Initialize FlutterFire:
-      future: _initialization,
+      future: flutterFireInit, // Initialize FlutterFire
       builder: (context, snapshot) {
         // Check for errors
         if (snapshot.hasError) {
