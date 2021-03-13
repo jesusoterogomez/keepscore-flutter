@@ -32,6 +32,11 @@ target 'Runner' do
   use_modular_headers!
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+
+  # Improve iOS build times with pre-built Firebase SDK
+  # @todo: enable for CI purposes
+  # @see: https://firebase.flutter.dev/docs/overview#improve-ios-build-times
+  # pod 'FirebaseFirestore', :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git', :tag => '7.3.0'
 end
 
 post_install do |installer|
