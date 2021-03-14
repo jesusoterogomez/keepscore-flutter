@@ -3,6 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
+// Make sure to enable google sign in via XCode
+// @see: https://developers.google.com/identity/sign-in/ios/start-integrating#add_a_url_scheme_to_your_project
+
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
