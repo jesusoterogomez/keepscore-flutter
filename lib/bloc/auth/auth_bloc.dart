@@ -38,13 +38,20 @@ class AuthBloc {
   }
 
   // BehaviorSubject profile = BehaviorSubject(); // User data in Firestore
-  BehaviorSubject<AuthStatus> status =
-      BehaviorSubject(); // authentication status
+  BehaviorSubject<AuthStatus> status = BehaviorSubject.seeded(
+    AuthStatus.uninitialized,
+  );
 
   // Constructor
   AuthBloc() {
     // Initialize
-    status.add(AuthStatus.uninitialized);
+    // status.add(AuthStatus.uninitialized);
+
+    // Listeners
+    status.listen((value) => log('Auth changed: ' + value.toString()));
+
+    // Check current authentication state
+    getCurrentAuth();
   }
 
   /// Starts the Sign In with Google Flow.
@@ -54,8 +61,6 @@ class AuthBloc {
     status.add(AuthStatus.loading);
 
     try {
-      log(AuthStatus.loading.toString());
-
       final googleUser = await _googleSignIn.signIn();
       final googleAuth = await googleUser.authentication;
       final credential = GoogleAuthProvider.credential(
@@ -65,11 +70,44 @@ class AuthBloc {
       await _firebaseAuth.signInWithCredential(credential);
 
       status.add(AuthStatus.authenticated);
-    } on Exception {
-      // throw LogInWithGoogleFailure();
-
+    } catch (error) {
+      log(error.toString());
       status.add(AuthStatus.failed);
     }
+  }
+
+  fakeLogIn() {
+    status.add(AuthStatus.authenticated);
+  }
+
+  /// Signs out the current user which will emit
+  /// [User.empty] from the [user] Stream.
+  ///
+  /// Throws a [LogOutFailure] if an exception occurs.
+  Future<void> logOut() async {
+    try {
+      await Future.wait([
+        _firebaseAuth.signOut(),
+        _googleSignIn.signOut(),
+      ]);
+
+      status.add(AuthStatus.unauthenticated);
+    } on Exception {
+      // throw LogOutFailure();
+    }
+  }
+
+  Future<void> getCurrentAuth() async {
+    status.add(AuthStatus.loading);
+
+    User? user = _firebaseAuth.currentUser;
+    if (user == null) {
+      status.add(AuthStatus.unauthenticated);
+      return;
+    }
+
+    log('user: ' + user.toString());
+    status.add(AuthStatus.authenticated);
   }
 }
 
