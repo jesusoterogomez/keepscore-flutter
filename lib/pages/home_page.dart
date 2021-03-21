@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:keepscore/bloc/matches/matches_bloc.dart';
+import 'package:keepscore/components/match_tile.dart';
 
 class HomePage extends StatelessWidget {
   static Route route() {
@@ -26,15 +27,20 @@ class HomePage extends StatelessWidget {
             padding: const EdgeInsets.all(8),
             children: matches
                 .map(
-                  (match) => Container(
-                    height: 30,
-                    color: Colors.amber[600],
-                    child: Center(
-                      child: Text(match.teams[0].attack.displayName),
-                    ),
-                  ),
+                  (match) => MatchTile(match),
                 )
                 .toList(),
+            // children: matches
+            //     .map(
+            //       (match) => Container(
+            //         height: 30,
+            //         color: Colors.amber[600],
+            //         child: Center(
+            //           child: Text(match.teams[0].attack.displayName),
+            //         ),
+            //       ),
+            //     )
+            //     .toList(),
           ),
         );
       },
