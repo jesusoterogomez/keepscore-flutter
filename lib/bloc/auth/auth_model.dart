@@ -7,6 +7,7 @@ class User {
   late String displayName;
   late String uid;
   late Timestamp lastLogin;
+  late String firstName;
 
   User.fromFirestore(dynamic user) {
     this.email = user['email'];
@@ -15,6 +16,7 @@ class User {
     this.displayName = user['displayName'];
     this.uid = user['uid'];
     this.lastLogin = user['lastLogin'];
+    this.firstName = user['displayName'].toString().split(' ')[0];
   }
 
   User();
