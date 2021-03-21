@@ -1,9 +1,15 @@
 workflows:
-  keepscore-workflow:
-    name: Keepscore Build
+  keepscore-ios:
+    name: Keepscore iOS
+    # See: https://docs.codemagic.io/getting-started/yaml/#cache
+    cache:
+      cache_paths:
+        - $FLUTTER_ROOT/.pub-cache
+        - $HOME/Library/Caches/CocoaPods
     scripts:
       - name: iOS Build
-        script: flutter build ios
+        script: flutter build ios --debug --no-codesign
+
     # publishing:
     #   email:
     #     recipients:
