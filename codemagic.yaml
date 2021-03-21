@@ -1,6 +1,20 @@
 workflows:
   keepscore-ios:
     name: Keepscore iOS
+    max_build_duration: 30
+    environment:
+      flutter: beta
+      xcode: latest
+      cocoapods: 1.10.1
+    triggering:
+      events:
+        - push
+        - pull_request
+        - tag
+      branch_patterns:
+        - pattern: '*'
+          include: true
+          source: true
     # See: https://docs.codemagic.io/getting-started/yaml/#cache
     cache:
       cache_paths:
@@ -9,6 +23,10 @@ workflows:
     scripts:
       - name: iOS Build
         script: flutter build ios --debug --no-codesign
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - flutter_drive.log
 
     # publishing:
     #   email:
