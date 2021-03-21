@@ -1,7 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:keepscore/bloc/auth/auth_bloc.dart';
+import 'package:keepscore/bloc/matches/matches_bloc.dart';
 
 class HomePage extends StatelessWidget {
   static Route route() {
@@ -10,32 +8,33 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = AuthProvider.of(context);
+    final bloc = MatchesProvider.of(context);
+    // Fetch data
+    bloc.getMatches();
 
     return StreamBuilder(
-      stream: bloc.status,
-      // initialData: bloc.,
-      builder: (BuildContext context, AsyncSnapshot<AuthStatus> snapshot) {
+      stream: bloc.matches,
+      builder: (BuildContext context, AsyncSnapshot<List<Match>> snapshot) {
+        // @todo; Remove null check
+        List<Match> matches = snapshot.data!;
+
         return Scaffold(
           appBar: AppBar(
             title: Text('Home'),
           ),
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'Status:' + snapshot.data.toString(),
-                ),
-                ElevatedButton(
-                  onPressed: () => {
-                    Navigator.pushNamed(context, '/profile'),
-                  },
-                  child: Text('Go to my profile'),
-                ),
-              ],
-            ),
+          body: ListView(
+            padding: const EdgeInsets.all(8),
+            children: matches
+                .map(
+                  (match) => Container(
+                    height: 30,
+                    color: Colors.amber[600],
+                    child: Center(
+                      child: Text(match.teams[0].attack.displayName),
+                    ),
+                  ),
+                )
+                .toList(),
           ),
         );
       },
