@@ -1,0 +1,10 @@
+workflows:
+  keepscore-workflow:
+    name: Keepscore Build
+    scripts:
+      - name: iOS Build
+        script: flutter build ios
+    # publishing:
+    #   email:
+    #     recipients:
+    #       - hello@jesusoterogomez.com
