@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:keepscore/bloc/matches/matches_bloc.dart';
 
 // Pages
 import 'package:keepscore/pages/home_page.dart';
@@ -20,7 +21,9 @@ class AppFrame extends StatelessWidget {
         '/profile': (context) => ProfilePage(),
       },
       onGenerateRoute: (_) => SplashPage.route(),
-      home: HomePage(),
+      home: MatchesProvider(
+        child: HomePage(),
+      ),
       debugShowCheckedModeBanner: false,
     );
   }
