@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:keepscore/bloc/matches/matches_bloc.dart';
+import 'package:keepscore/defaults.dart';
 
 // Pages
 import 'package:keepscore/pages/home_page.dart';
@@ -12,9 +13,7 @@ class AppFrame extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Keepscore',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: BASE_THEME,
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
         '/home': (context) => HomePage(),
