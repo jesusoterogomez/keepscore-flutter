@@ -11,7 +11,7 @@ class Match {
     type = data['type'];
     createdAt = data['createdAt'];
     teams = List<Team>.from(data['teams'].map(
-      (item) => new Team.fromFirestore(item),
+      (item) => Team.fromFirestore(item),
     ));
   }
 
@@ -25,8 +25,8 @@ class Team {
   late bool win;
 
   Team.fromFirestore(dynamic team) {
-    this.attack = new User.fromFirestore(team['attack']);
-    this.defense = new User.fromFirestore(team['defense']);
+    this.attack = User.fromFirestore(team['attack']);
+    this.defense = User.fromFirestore(team['defense']);
     this.score = team['score'];
     this.win = team['win'];
   }

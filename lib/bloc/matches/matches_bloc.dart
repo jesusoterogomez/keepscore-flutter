@@ -15,7 +15,7 @@ class MatchesBloc {
   // Streams
   late Stream<QuerySnapshot> collectionState;
 
-  final matches = new BehaviorSubject<List<Match>>();
+  final matches = BehaviorSubject<List<Match>>();
 
   // Constructor
   MatchesBloc() {
