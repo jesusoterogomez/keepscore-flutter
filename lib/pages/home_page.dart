@@ -25,22 +25,19 @@ class HomePage extends StatelessWidget {
           ),
           body: ListView(
             padding: const EdgeInsets.all(8),
-            children: matches
-                .map(
-                  (match) => MatchTile(match),
-                )
-                .toList(),
-            // children: matches
-            //     .map(
-            //       (match) => Container(
-            //         height: 30,
-            //         color: Colors.amber[600],
-            //         child: Center(
-            //           child: Text(match.teams[0].attack.displayName),
-            //         ),
-            //       ),
-            //     )
-            //     .toList(),
+            children: matches.map((match) => MatchTile(match)).toList(),
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Feed',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.stacked_bar_chart),
+                label: 'Ranking',
+              ),
+            ],
           ),
         );
       },
