@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:keepscore/bloc/auth/auth_bloc.dart';
 import 'package:keepscore/bloc/matches/matches_bloc.dart';
 import 'package:keepscore/components/match_tile.dart';
 
@@ -10,6 +11,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authBloc = AuthProvider.of(context);
     final bloc = MatchesProvider.of(context);
     // Fetch data
     bloc.getMatches();
@@ -108,14 +110,17 @@ class HomePage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  ElevatedButton.icon(
+                  TextButton(
                     onPressed: () {
                       Navigator.pushNamed(context, '/new/players');
                     },
                     style: ButtonStyle(
                       elevation: MaterialStateProperty.all<double>(0),
                       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                        EdgeInsets.all(14),
+                        EdgeInsets.symmetric(
+                          vertical: 14,
+                          horizontal: 0,
+                        ),
                       ),
                       backgroundColor: MaterialStateProperty.all<Color>(
                         Colors.black,
@@ -124,44 +129,33 @@ class HomePage extends StatelessWidget {
                         Colors.white,
                       ),
                     ),
-                    icon: Icon(
-                      Icons.bolt,
-                      size: 24,
+                    child: Center(
+                      heightFactor: 1,
+                      child: Icon(
+                        Icons.bolt,
+                        size: 24,
+                      ),
                     ),
-                    label: Row(
-                      children: [
-                        Text(
-                          "",
-                          style: GoogleFonts.raleway(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ],
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/profile');
+                    },
+                    style: ButtonStyle(
+                      elevation: MaterialStateProperty.all<double>(0),
+                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                        EdgeInsets.all(14),
+                      ),
+                      foregroundColor: MaterialStateProperty.all<Color>(
+                        Colors.black,
+                      ),
                     ),
+                    child: Text('Me'),
                   )
                 ],
               ),
             ),
           ),
-          // bottomNavigationBar: BottomNavigationBar(
-          //   onTap: (),
-          //   items: [
-          //     BottomNavigationBarItem(
-          //       icon: Icon(Icons.home),
-          //       label: 'Feed',
-          //     ),
-          //     BottomNavigationBarItem(
-          //       icon: Icon(Icons.stacked_bar_chart),
-          //       label: 'Ranking',
-          //     ),
-          //     BottomNavigationBarItem(
-
-          //       icon: Icon(Icons.stacked_bar_chart),
-          //       label: 'Ranking',
-          //     ),
-          //   ],
-          // ),
         );
       },
     );
