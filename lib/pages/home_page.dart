@@ -11,7 +11,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authBloc = AuthProvider.of(context);
     final bloc = MatchesProvider.of(context);
     // Fetch data
     bloc.getMatches();
