@@ -10,7 +10,6 @@ class LoginPage extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: StreamBuilder(
         stream: bloc.status,
-        // initialData: bloc.,
         builder: (BuildContext context, AsyncSnapshot<AuthStatus> snapshot) {
           return Center(
             child: Scaffold(
@@ -23,7 +22,6 @@ class LoginPage extends StatelessWidget {
                       'Status:' + snapshot.data.toString(),
                     ),
                     ElevatedButton(
-                      // onPressed: () => bloc.logInWithGoogle(),
                       onPressed: () => bloc.logInWithGoogle(),
                       child: Text('Log in with Google'),
                     ),

@@ -36,7 +36,7 @@ class HomePage extends StatelessWidget {
             ),
             child: Expanded(
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ElevatedButton.icon(
                     onPressed: () {
@@ -110,7 +110,7 @@ class HomePage extends StatelessWidget {
                   ),
                   ElevatedButton.icon(
                     onPressed: () {
-                      // Respond to button press
+                      Navigator.pushNamed(context, '/new/players');
                     },
                     style: ButtonStyle(
                       elevation: MaterialStateProperty.all<double>(0),
