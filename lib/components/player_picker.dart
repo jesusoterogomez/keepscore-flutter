@@ -7,6 +7,7 @@ import 'package:keepscore/bloc/users/users_bloc.dart';
 import 'package:keepscore/components/square_avatar.dart';
 import 'package:keepscore/components/user_tile.dart';
 import 'package:keepscore/defaults.dart';
+import 'package:keepscore/pages/match_in_progress_page.dart';
 
 class PlayerPicker extends StatefulWidget {
   @override
@@ -108,6 +109,7 @@ class _PlayerPickerState extends State<PlayerPicker> {
                       _players,
                       addPlayer,
                       resetPlayers,
+                      allPlayersSelected,
                     )
             ],
           ),
@@ -120,6 +122,7 @@ class _PlayerPickerState extends State<PlayerPicker> {
 class PlayerPickerSummary extends StatelessWidget {
   final List<User> users;
   final List<dynamic> players;
+  final bool allPlayersSelected;
   final void Function(String) addPlayer;
   final void Function() resetPlayers;
 
@@ -128,6 +131,7 @@ class PlayerPickerSummary extends StatelessWidget {
     this.players,
     this.addPlayer,
     this.resetPlayers,
+    this.allPlayersSelected,
   );
 
   User findPlayer(String uid, List<User> users) {
@@ -234,28 +238,46 @@ class PlayerPickerSummary extends StatelessWidget {
                 width: 10,
               ),
               Expanded(
-                child: ElevatedButton.icon(
-                    onPressed: () => {},
-                    style: ButtonStyle(
-                      elevation: MaterialStateProperty.all<double>(0),
-                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                        EdgeInsets.symmetric(
-                          vertical: 14,
-                          horizontal: 20,
+                child: Opacity(
+                  opacity: allPlayersSelected ? 1 : 0.2,
+                  child: ElevatedButton.icon(
+                      onPressed: () {
+                        if (!allPlayersSelected) {
+                          return;
+                        }
+
+                        // Navigate to Match Start and pass 4 selected players
+                        Navigator.pushNamed(
+                          context,
+                          MatchInProgressPage.routeName,
+                          arguments: MatchInProgressPageArguments(players
+                              .map(
+                                (player) => findPlayer(player, users),
+                              )
+                              .toList()),
+                        );
+                      },
+                      style: ButtonStyle(
+                        elevation: MaterialStateProperty.all<double>(0),
+                        padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                          EdgeInsets.symmetric(
+                            vertical: 14,
+                            horizontal: 20,
+                          ),
+                        ),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                          Colors.black,
+                        ),
+                        foregroundColor: MaterialStateProperty.all<Color>(
+                          Colors.white,
                         ),
                       ),
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                        Colors.black,
+                      icon: Icon(
+                        Icons.bolt,
+                        size: 24,
                       ),
-                      foregroundColor: MaterialStateProperty.all<Color>(
-                        Colors.white,
-                      ),
-                    ),
-                    icon: Icon(
-                      Icons.bolt,
-                      size: 24,
-                    ),
-                    label: Text('Start Match')),
+                      label: Text('Start Match')),
+                ),
               )
             ],
           )
