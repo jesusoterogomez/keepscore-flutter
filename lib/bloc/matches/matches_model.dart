@@ -1,18 +1,26 @@
 part of 'matches_bloc.dart';
 
 class Match {
+  late String id;
   late String type;
+  late List<MatchTimelineEntry> timeline;
   late Timestamp createdAt;
+  late Timestamp startedAt;
   late List<Team> teams;
 
   Match.fromSnapshot(DocumentSnapshot snapshot) {
     Map<String, dynamic> data = snapshot.data()!;
-
+    id = snapshot.id;
     type = data['type'];
+
+    timeline = List<MatchTimelineEntry>.from(data['timeline'].map(
+      (item) => MatchTimelineEntry.fromFirestore(item),
+    ));
 
     // The server timestamp might be slightly ahead of the local time, when the
     // match collection refreshes, the createdAt value might be null for a few milliseconds.
     createdAt = data['createdAt'] != null ? data['createdAt'] : Timestamp.now();
+    startedAt = data['startedAt'];
 
     teams = List<Team>.from(data['teams'].map(
       (item) => Team.fromFirestore(item),
@@ -20,6 +28,67 @@ class Match {
   }
 
   Match();
+
+  Player getPlayer(String uid) {
+    if (teams[0].attack.uid == uid) {
+      return Player.fromUser(
+          teams[0].attack, PlayerPosition.attack, PlayerTeam.A);
+    }
+
+    if (teams[0].defense.uid == uid) {
+      return Player.fromUser(
+          teams[0].defense, PlayerPosition.defense, PlayerTeam.A);
+    }
+
+    if (teams[1].attack.uid == uid) {
+      return Player.fromUser(
+          teams[1].attack, PlayerPosition.attack, PlayerTeam.B);
+    }
+
+    if (teams[1].defense.uid == uid) {
+      return Player.fromUser(
+          teams[1].defense, PlayerPosition.defense, PlayerTeam.B);
+    }
+
+    return Player();
+  }
+}
+
+class Player {
+  late PlayerPosition position;
+  late PlayerTeam team;
+  late User user;
+
+  Player.fromUser(User user, position, team) {
+    log(user.displayName.toString());
+    this.user = user;
+    this.position = position;
+    this.team = team;
+  }
+
+  Player();
+}
+
+enum PlayerPosition {
+  defense,
+  attack,
+}
+
+enum PlayerTeam {
+  A,
+  B,
+}
+
+class MatchTimelineEntry {
+  late String uid;
+  int seconds = 0;
+
+  MatchTimelineEntry.fromFirestore(dynamic entry) {
+    this.uid = entry['uid'];
+    this.seconds = entry['seconds'];
+  }
+
+  MatchTimelineEntry();
 }
 
 class Team {

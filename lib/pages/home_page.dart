@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:keepscore/bloc/matches/matches_bloc.dart';
 import 'package:keepscore/components/match_tile.dart';
+import 'package:keepscore/pages/match_details_page.dart';
 
 class HomePage extends StatelessWidget {
   static Route route() {
@@ -13,6 +17,7 @@ class HomePage extends StatelessWidget {
     final bloc = MatchesProvider.of(context);
     // Fetch data
     bloc.getMatches();
+    // timeDilation = 5.0;
 
     return StreamBuilder(
       stream: bloc.matches,
@@ -29,7 +34,18 @@ class HomePage extends StatelessWidget {
           ),
           body: ListView(
             padding: const EdgeInsets.all(8),
-            children: matches.map((match) => MatchTile(match)).toList(),
+            children: matches
+                .map(
+                  (match) => MatchTile(
+                    match,
+                    () => Navigator.pushNamed(
+                      context,
+                      MatchDetailsPage.routeName,
+                      arguments: MatchDetailsPageArguments(match),
+                    ),
+                  ),
+                )
+                .toList(),
           ),
           bottomNavigationBar: Container(
             height: 100,
