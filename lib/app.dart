@@ -4,6 +4,7 @@ import 'package:keepscore/defaults.dart';
 
 // Pages
 import 'package:keepscore/pages/home_page.dart';
+import 'package:keepscore/pages/match_details_page.dart';
 import 'package:keepscore/pages/match_in_progress_page.dart';
 import 'package:keepscore/pages/new_match_players_page.dart';
 import 'package:keepscore/pages/profile_page.dart';
@@ -22,6 +23,7 @@ class AppFrame extends StatelessWidget {
         '/profile': (context) => ProfilePage(),
         '/new/players': (context) => NewMatchPlayersPage(),
         MatchInProgressPage.routeName: (context) => MatchInProgressPage(),
+        MatchDetailsPage.routeName: (context) => MatchDetailsPage(),
       },
       onGenerateRoute: (_) => SplashPage.route(),
       home: MatchesProvider(
