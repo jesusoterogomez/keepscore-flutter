@@ -4,11 +4,20 @@ class NewMatch {
   int secondsElapsed = 0;
   NewMatchStatus status = NewMatchStatus.not_started;
   Timestamp startedAt = Timestamp.now();
+  FieldValue createdAt = FieldValue.serverTimestamp();
+  MatchType type = MatchType.doubles;
   late List<TimelineEntry> timeline;
 
   // Teams
   late Team teamA;
   late Team teamB;
+
+  NewMatch.empty() {
+    teamA = Team.empty();
+    teamB = Team.empty();
+    startedAt = Timestamp.now();
+    timeline = [];
+  }
 
   NewMatch.start(List<User> players) {
     status = NewMatchStatus.started;
@@ -37,6 +46,19 @@ class NewMatch {
 
     return score;
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'startedAt': startedAt,
+      'createdAt': createdAt,
+      'teams': [
+        teamA.toMap(),
+        teamB.toMap(),
+      ].toList(),
+      'type': type.toString().split('.').last,
+      'timeline': timeline.map((t) => t.toMap()).toList()
+    };
+  }
 }
 
 class TimelineEntry {
@@ -52,10 +74,22 @@ class TimelineEntry {
   }
 
   TimelineEntry();
+
+  Map<String, dynamic> toMap() {
+    return {
+      'uid': uid,
+      'seconds': seconds,
+    };
+  }
 }
 
 enum TimelineEntryType {
   goal,
+}
+
+enum MatchType {
+  singles,
+  doubles,
 }
 
 enum NewMatchStatus {

@@ -9,7 +9,11 @@ class Match {
     Map<String, dynamic> data = snapshot.data()!;
 
     type = data['type'];
-    createdAt = data['createdAt'];
+
+    // The server timestamp might be slightly ahead of the local time, when the
+    // match collection refreshes, the createdAt value might be null for a few milliseconds.
+    createdAt = data['createdAt'] != null ? data['createdAt'] : Timestamp.now();
+
     teams = List<Team>.from(data['teams'].map(
       (item) => Team.fromFirestore(item),
     ));
@@ -23,6 +27,11 @@ class Team {
   late User defense;
   bool win = false;
   int score = 0;
+
+  Team.empty() {
+    this.attack = User.empty();
+    this.defense = User.empty();
+  }
 
   Team.fromFirestore(dynamic team) {
     this.attack = User.fromFirestore(team['attack']);
@@ -58,5 +67,14 @@ class Team {
       attack.uid,
       defense.uid,
     ].contains(uid);
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'attack': attack.toMap(),
+      'defense': defense.toMap(),
+      'win': win,
+      'score': score,
+    };
   }
 }

@@ -17,7 +17,10 @@ class HomePage extends StatelessWidget {
     return StreamBuilder(
       stream: bloc.matches,
       builder: (BuildContext context, AsyncSnapshot<List<Match>> snapshot) {
-        // @todo; Remove null check
+        if (!snapshot.hasData) {
+          return CircularProgressIndicator();
+        }
+
         List<Match> matches = snapshot.data!;
 
         return Scaffold(
@@ -34,124 +37,132 @@ class HomePage extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white,
             ),
-            child: Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      // Respond to button press
-                    },
-                    style: ButtonStyle(
-                      elevation: MaterialStateProperty.all<double>(0),
-                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                        EdgeInsets.all(14),
-                      ),
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                        Color(0xFFE5E5E5),
-                      ),
-                      foregroundColor: MaterialStateProperty.all<Color>(
-                        Colors.black,
-                      ),
-                    ),
-                    icon: Icon(
-                      Icons.grid_view,
-                      size: 22,
-                    ),
-                    label: Row(
-                      children: [
-                        SizedBox(
-                          width: 6,
-                        ),
-                        Text(
-                          "Home",
-                          style: GoogleFonts.raleway(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
+            child: Row(
+              children: [
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          // Respond to button press
+                        },
+                        style: ButtonStyle(
+                          elevation: MaterialStateProperty.all<double>(0),
+                          padding:
+                              MaterialStateProperty.all<EdgeInsetsGeometry>(
+                            EdgeInsets.all(14),
+                          ),
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            Color(0xFFE5E5E5),
+                          ),
+                          foregroundColor: MaterialStateProperty.all<Color>(
+                            Colors.black,
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      // Respond to button press
-                    },
-                    style: ButtonStyle(
-                      elevation: MaterialStateProperty.all<double>(0),
-                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                        EdgeInsets.all(14),
-                      ),
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                        Color(0xFFE5E5E5).withOpacity(0),
-                      ),
-                      foregroundColor: MaterialStateProperty.all<Color>(
-                        Colors.black,
-                      ),
-                    ),
-                    icon: Icon(
-                      Icons.bar_chart,
-                      size: 22,
-                    ),
-                    label: Row(
-                      children: [
-                        SizedBox(
-                          width: 6,
+                        icon: Icon(
+                          Icons.grid_view,
+                          size: 22,
                         ),
-                        Text(
-                          "",
-                          style: GoogleFonts.raleway(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
+                        label: Row(
+                          children: [
+                            SizedBox(
+                              width: 6,
+                            ),
+                            Text(
+                              "Home",
+                              style: GoogleFonts.raleway(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          // Respond to button press
+                        },
+                        style: ButtonStyle(
+                          elevation: MaterialStateProperty.all<double>(0),
+                          padding:
+                              MaterialStateProperty.all<EdgeInsetsGeometry>(
+                            EdgeInsets.all(14),
+                          ),
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            Color(0xFFE5E5E5).withOpacity(0),
+                          ),
+                          foregroundColor: MaterialStateProperty.all<Color>(
+                            Colors.black,
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/new/players');
-                    },
-                    style: ButtonStyle(
-                      elevation: MaterialStateProperty.all<double>(0),
-                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                        EdgeInsets.symmetric(
-                          vertical: 14,
-                          horizontal: 0,
+                        icon: Icon(
+                          Icons.bar_chart,
+                          size: 22,
+                        ),
+                        label: Row(
+                          children: [
+                            SizedBox(
+                              width: 6,
+                            ),
+                            Text(
+                              "",
+                              style: GoogleFonts.raleway(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                        Colors.black,
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/new/players');
+                        },
+                        style: ButtonStyle(
+                          elevation: MaterialStateProperty.all<double>(0),
+                          padding:
+                              MaterialStateProperty.all<EdgeInsetsGeometry>(
+                            EdgeInsets.symmetric(
+                              vertical: 14,
+                              horizontal: 0,
+                            ),
+                          ),
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            Colors.black,
+                          ),
+                          foregroundColor: MaterialStateProperty.all<Color>(
+                            Colors.white,
+                          ),
+                        ),
+                        child: Center(
+                          heightFactor: 1,
+                          child: Icon(
+                            Icons.bolt,
+                            size: 24,
+                          ),
+                        ),
                       ),
-                      foregroundColor: MaterialStateProperty.all<Color>(
-                        Colors.white,
-                      ),
-                    ),
-                    child: Center(
-                      heightFactor: 1,
-                      child: Icon(
-                        Icons.bolt,
-                        size: 24,
-                      ),
-                    ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/profile');
+                        },
+                        style: ButtonStyle(
+                          elevation: MaterialStateProperty.all<double>(0),
+                          padding:
+                              MaterialStateProperty.all<EdgeInsetsGeometry>(
+                            EdgeInsets.all(14),
+                          ),
+                          foregroundColor: MaterialStateProperty.all<Color>(
+                            Colors.black,
+                          ),
+                        ),
+                        child: Text('Me'),
+                      )
+                    ],
                   ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/profile');
-                    },
-                    style: ButtonStyle(
-                      elevation: MaterialStateProperty.all<double>(0),
-                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                        EdgeInsets.all(14),
-                      ),
-                      foregroundColor: MaterialStateProperty.all<Color>(
-                        Colors.black,
-                      ),
-                    ),
-                    child: Text('Me'),
-                  )
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         );

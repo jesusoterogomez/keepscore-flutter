@@ -49,6 +49,10 @@ class _PlayerPickerState extends State<PlayerPicker> {
     return StreamBuilder(
       stream: bloc.users,
       builder: (BuildContext context, AsyncSnapshot<List<User>> snapshot) {
+        if (!snapshot.hasData) {
+          return CircularProgressIndicator();
+        }
+
         // @todo; Remove null check
         List<User> users = snapshot.data!;
         bool allPlayersSelected = !_players.contains(null);

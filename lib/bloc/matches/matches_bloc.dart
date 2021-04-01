@@ -7,7 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 part 'matches_provider.dart';
 part 'matches_model.dart';
 
-const FIRESTORE_COLLECTION = 'matches';
+const FIRESTORE_COLLECTION = 'matches_2';
 
 class MatchesBloc {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;

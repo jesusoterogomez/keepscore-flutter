@@ -21,10 +21,6 @@ class MatchInProgressPage extends StatelessWidget {
         .settings
         .arguments as MatchInProgressPageArguments;
 
-    // Start Match
-    newMatchBloc.dispose();
-    newMatchBloc.start(args.players);
-
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -67,12 +63,9 @@ class _MatchInProgressPageContentState
           padding: EdgeInsets.fromLTRB(20, 80, 20, 40),
           child: StreamBuilder(
             stream: bloc.match,
+            initialData: NewMatch.empty(),
             builder: (BuildContext context, AsyncSnapshot<NewMatch> snapshot) {
               NewMatch match = snapshot.data!;
-
-              // if (match.status == NewMatchStatus.finished) {
-              //   bloc.();
-              // }
 
               return Container(
                 child: Column(
@@ -128,7 +121,7 @@ class MatchInProgressControls extends StatelessWidget {
           child: Row(
             children: [
               ElevatedButton(
-                onPressed: () => Navigator.of(context).pop(),
+                onPressed: () => newMatchBloc.saveMatch(),
                 child: Text('Save'),
               )
             ],
@@ -191,6 +184,7 @@ class MatchInProgressTimer extends StatelessWidget {
 
     return StreamBuilder(
       stream: bloc.counter,
+      initialData: 0,
       builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
         return FormattedTimer(snapshot.data!);
       },

@@ -11,15 +11,23 @@ import 'package:rxdart/rxdart.dart';
 part 'new_match_provider.dart';
 part 'new_match_model.dart';
 
+const FIRESTORE_COLLECTION = 'matches_2';
+
 class NewMatchBloc {
   // Streams
   late Timer timer;
   final Duration interval = Duration(seconds: 1);
   final counter = BehaviorSubject<int>.seeded(0);
-  final match = BehaviorSubject<NewMatch>();
+  final match = BehaviorSubject<NewMatch>.seeded(NewMatch.empty());
+
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  late CollectionReference collection;
 
   // Constructor
   NewMatchBloc() {
+    // Create reference to DB collection
+    collection = firestore.collection(FIRESTORE_COLLECTION);
+
     // Timers don't have any helpers for initializing
     // in stopped/paused mode. This initializes it and cancels it
     // immediately to have a proper Timer instance assigned
@@ -38,8 +46,9 @@ class NewMatchBloc {
   }
 
   void start(players) {
-    startTimer();
     log('Timer Started');
+
+    startTimer();
 
     match.add(NewMatch.start(players));
   }
@@ -73,6 +82,8 @@ class NewMatchBloc {
   void pause() {
     stopTimer();
     setStatus(NewMatchStatus.paused);
+
+    log('Timer Paused');
   }
 
   void setTeams(players) {}
@@ -96,12 +107,31 @@ class NewMatchBloc {
   }
 
   void reset() {
-    timer.cancel();
+    NewMatch _match = match.value!;
+
+    if (_match.status == NewMatchStatus.not_started) {
+      return;
+    }
+
+    stopTimer();
     counter.drain();
     match.drain();
 
     counter.add(0);
     setStatus(NewMatchStatus.not_started);
+  }
+
+  Future<void> saveMatch() async {
+    // Prepare to send data
+    var data = match.value!.toMap();
+
+    print('Saving match: $data');
+
+    try {
+      await collection.add(data);
+    } catch (error) {
+      print('Error $error');
+    }
   }
 }
 
