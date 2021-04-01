@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:keepscore/bloc/auth/auth_bloc.dart';
 import 'package:keepscore/bloc/matches/matches_bloc.dart';
 import 'package:keepscore/components/match_tile.dart';
 

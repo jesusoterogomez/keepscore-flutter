@@ -21,8 +21,8 @@ class Match {
 class Team {
   late User attack;
   late User defense;
-  late int score;
-  late bool win;
+  bool win = false;
+  int score = 0;
 
   Team.fromFirestore(dynamic team) {
     this.attack = User.fromFirestore(team['attack']);
@@ -31,5 +31,32 @@ class Team {
     this.win = team['win'];
   }
 
+  Team.fromMatchStart(User user1, User user2) {
+    attack = user1;
+    defense = user2;
+    win = false;
+    score = 0;
+  }
+
   Team(attack, defense);
+
+  int recordGoal(String uid) {
+    score = score + 1;
+    // Record goal for the specific player
+    if (attack.uid == uid) {}
+    if (defense.uid == uid) {}
+    if (score == MATCH_WIN_LIMIT) {
+      win = true;
+    }
+
+    return score;
+  }
+
+  // Check if a specific user (by ID) is part of the team.
+  bool containsPlayer(String uid) {
+    return [
+      attack.uid,
+      defense.uid,
+    ].contains(uid);
+  }
 }
