@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+const int MATCH_WIN_LIMIT = 10;
+
 final BORDER_RADIUS = BorderRadius.circular(6);
 
 final BASE_THEME = ThemeData(
