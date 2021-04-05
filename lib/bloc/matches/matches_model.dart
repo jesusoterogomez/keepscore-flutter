@@ -3,7 +3,7 @@ part of 'matches_bloc.dart';
 class Match {
   late String id;
   late String type;
-  late List<MatchTimelineEntry> timeline;
+  late List<TimelineEntry> timeline;
   late Timestamp createdAt;
   late Timestamp startedAt;
   late List<Team> teams;
@@ -13,8 +13,8 @@ class Match {
     id = snapshot.id;
     type = data['type'];
 
-    timeline = List<MatchTimelineEntry>.from(data['timeline'].map(
-      (item) => MatchTimelineEntry.fromFirestore(item),
+    timeline = List<TimelineEntry>.from(data['timeline'].map(
+      (item) => TimelineEntry.fromFirestore(item),
     ));
 
     // The server timestamp might be slightly ahead of the local time, when the
@@ -77,18 +77,6 @@ enum PlayerPosition {
 enum PlayerTeam {
   A,
   B,
-}
-
-class MatchTimelineEntry {
-  late String uid;
-  int seconds = 0;
-
-  MatchTimelineEntry.fromFirestore(dynamic entry) {
-    this.uid = entry['uid'];
-    this.seconds = entry['seconds'];
-  }
-
-  MatchTimelineEntry();
 }
 
 class Team {
