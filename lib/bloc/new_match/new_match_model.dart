@@ -42,7 +42,11 @@ class NewMatch {
     }
 
     // Add goal to timeline
-    timeline.add(TimelineEntry.record(uid, seconds));
+    timeline.add(TimelineEntry.record(
+      uid,
+      seconds,
+      [teamA.score, teamB.score],
+    ));
 
     return score;
   }
@@ -64,13 +68,21 @@ class NewMatch {
 class TimelineEntry {
   late String uid;
   late int seconds;
+  List<int> score = [0, 0];
 
   TimelineEntryType type = TimelineEntryType.goal;
 
-  TimelineEntry.record(String _uid, int _seconds) {
+  TimelineEntry.record(String _uid, int _seconds, List<int> _score) {
     uid = _uid;
     seconds = _seconds;
+    score = _score;
     type = TimelineEntryType.goal;
+  }
+
+  TimelineEntry.fromFirestore(dynamic entry) {
+    this.uid = entry['uid'];
+    this.seconds = entry['seconds'];
+    this.score = List<int>.from(entry['score']);
   }
 
   TimelineEntry();
@@ -79,6 +91,7 @@ class TimelineEntry {
     return {
       'uid': uid,
       'seconds': seconds,
+      'score': score,
     };
   }
 }
