@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class FormattedTimer extends StatelessWidget {
   final int seconds;
+  final TextStyle? style;
 
-  FormattedTimer(this.seconds);
+  FormattedTimer(this.seconds, {this.style});
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +14,9 @@ class FormattedTimer extends StatelessWidget {
         ((seconds / 60) % 60).floor().toString().padLeft(2, '0');
     String secondsFormatted = (seconds % 60).floor().toString().padLeft(2, '0');
 
-    return Text(minutesFormatted + ':' + secondsFormatted);
+    return Text(
+      minutesFormatted + ':' + secondsFormatted,
+      style: style,
+    );
   }
 }
