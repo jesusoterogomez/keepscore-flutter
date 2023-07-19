@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:keepscore/bloc/auth/auth_bloc.dart';
 
 class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
+
   static Route route() {
-    return MaterialPageRoute<void>(builder: (_) => ProfilePage());
+    return MaterialPageRoute<void>(builder: (_) => const ProfilePage());
   }
 
   @override
@@ -16,18 +18,18 @@ class ProfilePage extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot<AuthStatus> snapshot) {
         return Scaffold(
           appBar: AppBar(
-            title: Text('Profile'),
+            title: const Text('Profile'),
           ),
           body: Center(
             child: Column(
               children: [
                 ElevatedButton(
                   onPressed: () => Navigator.pop(context),
-                  child: Text('Go back'),
+                  child: const Text('Go back'),
                 ),
                 ElevatedButton(
                   onPressed: () => bloc.logOut(),
-                  child: Text('Log out'),
+                  child: const Text('Log out'),
                 )
               ],
             ),

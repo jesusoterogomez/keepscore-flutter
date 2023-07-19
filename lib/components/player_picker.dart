@@ -10,6 +10,8 @@ import 'package:keepscore/defaults.dart';
 import 'package:keepscore/pages/match_in_progress_page.dart';
 
 class PlayerPicker extends StatefulWidget {
+  const PlayerPicker({super.key});
+
   @override
   _PlayerPickerState createState() => _PlayerPickerState();
 }
@@ -50,7 +52,7 @@ class _PlayerPickerState extends State<PlayerPicker> {
       stream: bloc.users,
       builder: (BuildContext context, AsyncSnapshot<List<User>> snapshot) {
         if (!snapshot.hasData) {
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         }
 
         // @todo; Remove null check
@@ -60,7 +62,7 @@ class _PlayerPickerState extends State<PlayerPicker> {
         bool noSelection = _players.every((element) => element == null);
 
         return Container(
-          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
           child: Column(
             children: [
               Expanded(
@@ -76,8 +78,8 @@ class _PlayerPickerState extends State<PlayerPicker> {
                     return Opacity(
                       opacity: allPlayersSelected && !isSelected ? 0.5 : 1,
                       child: Container(
-                        margin: EdgeInsets.all(5),
-                        padding: EdgeInsets.all(4),
+                        margin: const EdgeInsets.all(5),
+                        padding: const EdgeInsets.all(4),
                         decoration: BoxDecoration(
                           color: isSelected ? GRAY_DARK : null,
                           borderRadius: BORDER_RADIUS,
@@ -90,13 +92,13 @@ class _PlayerPickerState extends State<PlayerPicker> {
                                   ? Row(
                                       children: [
                                         Text(teamA ? 'Team A' : 'Team B'),
-                                        Text('-'),
+                                        const Text('-'),
                                         Text((position % 2 == 1)
                                             ? '[A]'
                                             : '[D]'),
                                       ],
                                     )
-                                  : SizedBox.shrink(),
+                                  : const SizedBox.shrink(),
                               UserTile(user),
                             ],
                           ),
@@ -107,7 +109,7 @@ class _PlayerPickerState extends State<PlayerPicker> {
                 ),
               ),
               noSelection
-                  ? SizedBox.shrink()
+                  ? const SizedBox.shrink()
                   : PlayerPickerSummary(
                       users,
                       _players,
@@ -130,7 +132,7 @@ class PlayerPickerSummary extends StatelessWidget {
   final void Function(String) addPlayer;
   final void Function() resetPlayers;
 
-  PlayerPickerSummary(
+  const PlayerPickerSummary(
     this.users,
     this.players,
     this.addPlayer,
@@ -149,11 +151,11 @@ class PlayerPickerSummary extends StatelessWidget {
 
     return Container(
       // height: 140,
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         vertical: 20,
         horizontal: 5,
       ),
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: GRAY_DEFAULT,
         borderRadius: BORDER_RADIUS,
@@ -173,7 +175,7 @@ class PlayerPickerSummary extends StatelessWidget {
                           width: 56,
                           color: GRAY_DARK,
                           child: player == null
-                              ? SizedBox.shrink()
+                              ? const SizedBox.shrink()
                               : SquaredAvatar(
                                   findPlayer(player, users).photoURL,
                                   48,
@@ -200,7 +202,7 @@ class PlayerPickerSummary extends StatelessWidget {
                           width: 56,
                           color: GRAY_DARK,
                           child: player == null
-                              ? SizedBox.shrink()
+                              ? const SizedBox.shrink()
                               : SquaredAvatar(
                                   findPlayer(player, users).photoURL,
                                   48,
@@ -210,19 +212,19 @@ class PlayerPickerSummary extends StatelessWidget {
                     )
                     .toList(),
               ].expand((x) => x).toList()),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Row(
             children: [
-              Container(
+              SizedBox(
                 width: 56,
                 child: ElevatedButton(
                   onPressed: () => resetPlayers(),
                   style: ButtonStyle(
                     elevation: MaterialStateProperty.all<double>(0),
                     padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                      EdgeInsets.symmetric(
+                      const EdgeInsets.symmetric(
                         vertical: 14,
                       ),
                     ),
@@ -233,12 +235,12 @@ class PlayerPickerSummary extends StatelessWidget {
                       Colors.white,
                     ),
                   ),
-                  child: Icon(
+                  child: const Icon(
                     Icons.refresh,
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Expanded(
@@ -264,7 +266,7 @@ class PlayerPickerSummary extends StatelessWidget {
                       style: ButtonStyle(
                         elevation: MaterialStateProperty.all<double>(0),
                         padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                          EdgeInsets.symmetric(
+                          const EdgeInsets.symmetric(
                             vertical: 14,
                             horizontal: 20,
                           ),
@@ -276,11 +278,11 @@ class PlayerPickerSummary extends StatelessWidget {
                           Colors.white,
                         ),
                       ),
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.bolt,
                         size: 24,
                       ),
-                      label: Text('Start Match')),
+                      label: const Text('Start Match')),
                 ),
               )
             ],

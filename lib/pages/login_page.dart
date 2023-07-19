@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:keepscore/bloc/auth/auth_bloc.dart';
 
 class LoginPage extends StatelessWidget {
+  const LoginPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final bloc = AuthProvider.of(context);
@@ -19,11 +21,11 @@ class LoginPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      'Status:' + snapshot.data.toString(),
+                      'Status:${snapshot.data}',
                     ),
                     ElevatedButton(
                       onPressed: () => bloc.logInWithGoogle(),
-                      child: Text('Log in with Google'),
+                      child: const Text('Log in with Google'),
                     ),
                   ],
                 ),

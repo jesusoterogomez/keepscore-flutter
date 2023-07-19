@@ -4,7 +4,7 @@ class FormattedTimer extends StatelessWidget {
   final int seconds;
   final TextStyle? style;
 
-  FormattedTimer(this.seconds, {this.style});
+  const FormattedTimer(this.seconds, {super.key, this.style});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class FormattedTimer extends StatelessWidget {
     String secondsFormatted = (seconds % 60).floor().toString().padLeft(2, '0');
 
     return Text(
-      minutesFormatted + ':' + secondsFormatted,
+      '$minutesFormatted:$secondsFormatted',
       style: style,
     );
   }

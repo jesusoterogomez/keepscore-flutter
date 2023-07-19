@@ -10,23 +10,23 @@ class User {
   late String firstName;
 
   User.empty() {
-    this.email = '';
-    this.emailVerified = false;
-    this.photoURL = '';
-    this.displayName = '';
-    this.uid = '';
-    this.lastLogin = Timestamp.now();
-    this.firstName = '';
+    email = '';
+    emailVerified = false;
+    photoURL = '';
+    displayName = '';
+    uid = '';
+    lastLogin = Timestamp.now();
+    firstName = '';
   }
 
   User.fromFirestore(dynamic user) {
-    this.email = user['email'];
-    this.emailVerified = user['emailVerified'];
-    this.photoURL = user['photoURL'];
-    this.displayName = user['displayName'];
-    this.uid = user['uid'];
-    this.lastLogin = user['lastLogin'];
-    this.firstName = user['displayName'].toString().split(' ')[0];
+    email = user['email'];
+    emailVerified = user['emailVerified'];
+    photoURL = user['photoURL'];
+    displayName = user['displayName'];
+    uid = user['uid'];
+    lastLogin = user['lastLogin'];
+    firstName = user['displayName'].toString().split(' ')[0];
   }
 
   Map<String, dynamic> toMap() {

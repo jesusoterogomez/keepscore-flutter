@@ -80,9 +80,9 @@ class TimelineEntry {
   }
 
   TimelineEntry.fromFirestore(dynamic entry) {
-    this.uid = entry['uid'];
-    this.seconds = entry['seconds'];
-    this.score = List<int>.from(entry['score']);
+    uid = entry['uid'];
+    seconds = entry['seconds'];
+    score = List<int>.from(entry['score']);
   }
 
   TimelineEntry();

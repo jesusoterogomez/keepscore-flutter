@@ -1,9 +1,8 @@
 import 'dart:developer';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jiffy/jiffy.dart';
+// import 'package:jiffy/jiffy.dart';
 import 'package:keepscore/bloc/matches/matches_bloc.dart';
 import 'package:keepscore/bloc/new_match/new_match_bloc.dart';
 import 'package:keepscore/components/formatted_timer.dart';
@@ -19,6 +18,9 @@ class MatchDetailsPageArguments {
 class MatchDetailsPage extends StatelessWidget {
   static const routeName = '/match/details';
 
+  const MatchDetailsPage({super.key});
+
+  @override
   Widget build(BuildContext context) {
     final MatchDetailsPageArguments args =
         ModalRoute.of(context)!.settings.arguments as MatchDetailsPageArguments;
@@ -28,19 +30,19 @@ class MatchDetailsPage extends StatelessWidget {
     // Reorder timeline entries from latest to earliest
     match.timeline.sort((a, b) => b.seconds - a.seconds);
 
-    var startedAt = Jiffy(match.startedAt.toDate());
+    // var startedAt = Jiffy.parseFromDateTime(match.startedAt.toDate());
     // var createdAt = Jiffy(match.createdAt.toDate());
-    var lastTimestamp = match.timeline.first.seconds;
+    // var lastTimestamp = match.timeline.first.seconds;
     // Duration(seconds: lastTimestamp)
-    var createdAt = Jiffy(startedAt).add(seconds: lastTimestamp);
+    // var createdAt = startedAt.add(seconds: lastTimestamp);
 
-    var matchSeconds = createdAt.diff(startedAt, Units.SECOND);
+    // var matchSeconds = createdAt.diff(startedAt, Units.SECOND);
 
     log(match.timeline[0].uid);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Match Details'),
+        title: const Text('Match Details'),
       ),
       body: Column(
         children: [
@@ -49,12 +51,12 @@ class MatchDetailsPage extends StatelessWidget {
           ),
           // FormattedTimer(matchSeconds.toInt()),
           Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: Colors.black,
               borderRadius: BORDER_RADIUS,
             ),
-            child: Row(
+            child: const Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
@@ -86,26 +88,24 @@ class MatchDetailsPage extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: ListView(
                     children: match.timeline.map((entry) {
                       var player = match.getPlayer(entry.uid);
                       return Column(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 60,
                           ),
                           Center(
                             child: Container(
-                              padding: EdgeInsets.all(4),
+                              padding: const EdgeInsets.all(4),
                               // For some reason, using Colors.white10 or
                               // referring to the theme color doesn't work.
                               // This color mirrors the background color in BASE_THEME
-                              color: Color(0xffFAFAFA),
+                              color: const Color(0xffFAFAFA),
                               child: Text(
-                                entry.score[0].toString() +
-                                    ':' +
-                                    entry.score[1].toString(),
+                                '${entry.score[0]}:${entry.score[1]}',
                                 style: GoogleFonts.montserrat(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20,
@@ -118,7 +118,7 @@ class MatchDetailsPage extends StatelessWidget {
                               TimelinePlayerEntry(entry, player),
                               Center(
                                 child: Container(
-                                  padding: EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                       horizontal: 16, vertical: 8),
                                   decoration: BoxDecoration(
                                     color: Colors.black,
@@ -126,7 +126,7 @@ class MatchDetailsPage extends StatelessWidget {
                                   ),
                                   child: FormattedTimer(
                                     entry.seconds.toInt(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w100,
                                     ),
@@ -153,7 +153,7 @@ class TimelinePlayerEntry extends StatelessWidget {
   final TimelineEntry entry;
   final Player player;
 
-  TimelinePlayerEntry(this.entry, this.player);
+  const TimelinePlayerEntry(this.entry, this.player, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -167,11 +167,11 @@ class TimelinePlayerEntry extends StatelessWidget {
                 Row(
                   children: [
                     SquaredAvatar(player.user.photoURL, 36),
-                    SizedBox(
+                    const SizedBox(
                       width: 4,
                     ),
                     Text(player.user.firstName),
-                    SizedBox(
+                    const SizedBox(
                       width: 4,
                     ),
                     Expanded(
@@ -202,11 +202,11 @@ class TimelinePlayerEntry extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SquaredAvatar(player.user.photoURL, 36),
-                  SizedBox(
+                  const SizedBox(
                     width: 4,
                   ),
                   Text(player.user.firstName),
-                  SizedBox(
+                  const SizedBox(
                     width: 4,
                   ),
                   Expanded(

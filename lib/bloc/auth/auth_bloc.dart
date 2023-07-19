@@ -48,7 +48,7 @@ class AuthBloc {
     // status.add(AuthStatus.uninitialized);
 
     // Listeners
-    status.listen((value) => log('Auth changed: ' + value.toString()));
+    status.listen((value) => log('Auth changed: $value'));
 
     // Check current authentication state
     getCurrentAuth();
@@ -62,11 +62,13 @@ class AuthBloc {
 
     try {
       final googleUser = await _googleSignIn.signIn();
-      final googleAuth = await googleUser.authentication;
+      final googleAuth = await googleUser!.authentication;
+
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
+
       await _firebaseAuth.signInWithCredential(credential);
 
       status.add(AuthStatus.authenticated);
@@ -106,7 +108,7 @@ class AuthBloc {
       return;
     }
 
-    log('user: ' + user.toString());
+    log('user: $user');
     status.add(AuthStatus.authenticated);
   }
 }

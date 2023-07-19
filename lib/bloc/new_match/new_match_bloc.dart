@@ -16,7 +16,7 @@ const FIRESTORE_COLLECTION = 'matches_2';
 class NewMatchBloc {
   // Streams
   late Timer timer;
-  final Duration interval = Duration(seconds: 1);
+  final Duration interval = const Duration(seconds: 1);
   final counter = BehaviorSubject<int>.seeded(0);
   final match = BehaviorSubject<NewMatch>.seeded(NewMatch.empty());
 
@@ -41,7 +41,7 @@ class NewMatchBloc {
   }
 
   void tick(_) {
-    int prev = counter.value!;
+    int prev = counter.value;
     counter.add(prev + 1);
   }
 
@@ -73,10 +73,10 @@ class NewMatchBloc {
   }
 
   void setStatus(NewMatchStatus status) {
-    NewMatch _match = match.value!;
-    _match.status = status;
+    NewMatch data = match.value;
+    data.status = status;
 
-    match.add(_match);
+    match.add(data);
   }
 
   void pause() {
@@ -89,16 +89,16 @@ class NewMatchBloc {
   void setTeams(players) {}
 
   void recordGoal(User player) {
-    NewMatch _match = match.value!;
+    NewMatch data = match.value;
 
-    int score = _match.recordGoal(player.uid, counter.value!);
+    int score = data.recordGoal(player.uid, counter.value);
 
     // Transition to finished when score limit is reached
     if (score == MATCH_WIN_LIMIT) {
       endMatch();
     }
 
-    match.add(_match);
+    match.add(data);
   }
 
   void endMatch() {
@@ -107,9 +107,9 @@ class NewMatchBloc {
   }
 
   void reset() {
-    NewMatch _match = match.value!;
+    NewMatch data = match.value;
 
-    if (_match.status == NewMatchStatus.not_started) {
+    if (data.status == NewMatchStatus.not_started) {
       return;
     }
 
@@ -123,7 +123,7 @@ class NewMatchBloc {
 
   Future<void> saveMatch() async {
     // Prepare to send data
-    var data = match.value!.toMap();
+    var data = match.value.toMap();
 
     print('Saving match: $data');
 

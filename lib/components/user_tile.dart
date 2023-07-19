@@ -6,13 +6,13 @@ import 'package:keepscore/defaults.dart';
 
 class UserTile extends StatelessWidget {
   final User user;
-  const UserTile(this.user);
+  const UserTile(this.user, {super.key});
 
   @override
   Widget build(BuildContext context) {
     // Reorder matches so that winners are on top
     return Container(
-      padding: EdgeInsets.all(6),
+      padding: const EdgeInsets.all(6),
       child: Container(
         decoration: BoxDecoration(
           // color: GRAY_DEFAULT,
@@ -26,7 +26,7 @@ class UserTile extends StatelessWidget {
                 user.photoURL,
                 52,
               ),
-              SizedBox(height: 10), // give it width
+              const SizedBox(height: 10), // give it width
               Text(
                 user.firstName,
                 style: GoogleFonts.montserrat(

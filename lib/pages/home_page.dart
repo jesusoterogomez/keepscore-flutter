@@ -1,15 +1,14 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:keepscore/bloc/matches/matches_bloc.dart';
 import 'package:keepscore/components/match_tile.dart';
 import 'package:keepscore/pages/match_details_page.dart';
 
 class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
   static Route route() {
-    return MaterialPageRoute<void>(builder: (_) => HomePage());
+    return MaterialPageRoute<void>(builder: (_) => const HomePage());
   }
 
   @override
@@ -23,14 +22,14 @@ class HomePage extends StatelessWidget {
       stream: bloc.matches,
       builder: (BuildContext context, AsyncSnapshot<List<Match>> snapshot) {
         if (!snapshot.hasData) {
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         }
 
         List<Match> matches = snapshot.data!;
 
         return Scaffold(
           appBar: AppBar(
-            title: Text('Home'),
+            title: const Text('Home'),
           ),
           body: ListView(
             padding: const EdgeInsets.all(8),
@@ -49,8 +48,8 @@ class HomePage extends StatelessWidget {
           ),
           bottomNavigationBar: Container(
             height: 100,
-            padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
-            decoration: BoxDecoration(
+            padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+            decoration: const BoxDecoration(
               color: Colors.white,
             ),
             child: Row(
@@ -67,22 +66,22 @@ class HomePage extends StatelessWidget {
                           elevation: MaterialStateProperty.all<double>(0),
                           padding:
                               MaterialStateProperty.all<EdgeInsetsGeometry>(
-                            EdgeInsets.all(14),
+                            const EdgeInsets.all(14),
                           ),
                           backgroundColor: MaterialStateProperty.all<Color>(
-                            Color(0xFFE5E5E5),
+                            const Color(0xFFE5E5E5),
                           ),
                           foregroundColor: MaterialStateProperty.all<Color>(
                             Colors.black,
                           ),
                         ),
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.grid_view,
                           size: 22,
                         ),
                         label: Row(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               width: 6,
                             ),
                             Text(
@@ -103,22 +102,22 @@ class HomePage extends StatelessWidget {
                           elevation: MaterialStateProperty.all<double>(0),
                           padding:
                               MaterialStateProperty.all<EdgeInsetsGeometry>(
-                            EdgeInsets.all(14),
+                            const EdgeInsets.all(14),
                           ),
                           backgroundColor: MaterialStateProperty.all<Color>(
-                            Color(0xFFE5E5E5).withOpacity(0),
+                            const Color(0xFFE5E5E5).withOpacity(0),
                           ),
                           foregroundColor: MaterialStateProperty.all<Color>(
                             Colors.black,
                           ),
                         ),
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.bar_chart,
                           size: 22,
                         ),
                         label: Row(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               width: 6,
                             ),
                             Text(
@@ -139,7 +138,7 @@ class HomePage extends StatelessWidget {
                           elevation: MaterialStateProperty.all<double>(0),
                           padding:
                               MaterialStateProperty.all<EdgeInsetsGeometry>(
-                            EdgeInsets.symmetric(
+                            const EdgeInsets.symmetric(
                               vertical: 14,
                               horizontal: 0,
                             ),
@@ -151,7 +150,7 @@ class HomePage extends StatelessWidget {
                             Colors.white,
                           ),
                         ),
-                        child: Center(
+                        child: const Center(
                           heightFactor: 1,
                           child: Icon(
                             Icons.bolt,
@@ -167,13 +166,13 @@ class HomePage extends StatelessWidget {
                           elevation: MaterialStateProperty.all<double>(0),
                           padding:
                               MaterialStateProperty.all<EdgeInsetsGeometry>(
-                            EdgeInsets.all(14),
+                            const EdgeInsets.all(14),
                           ),
                           foregroundColor: MaterialStateProperty.all<Color>(
                             Colors.black,
                           ),
                         ),
-                        child: Text('Me'),
+                        child: const Text('Me'),
                       )
                     ],
                   ),

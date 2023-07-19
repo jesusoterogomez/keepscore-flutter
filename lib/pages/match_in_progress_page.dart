@@ -15,6 +15,8 @@ class MatchInProgressPageArguments {
 class MatchInProgressPage extends StatelessWidget {
   static const routeName = '/match/start';
 
+  const MatchInProgressPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final MatchInProgressPageArguments args = ModalRoute.of(context)!
@@ -36,7 +38,7 @@ class MatchInProgressPage extends StatelessWidget {
 
 class MatchInProgressPageContent extends StatefulWidget {
   final List<User> players;
-  MatchInProgressPageContent(this.players);
+  const MatchInProgressPageContent(this.players, {super.key});
 
   @override
   _MatchInProgressPageContentState createState() =>
@@ -60,7 +62,7 @@ class _MatchInProgressPageContentState
       onWillPop: () async => false,
       child: Scaffold(
         body: Container(
-          padding: EdgeInsets.fromLTRB(20, 80, 20, 40),
+          padding: const EdgeInsets.fromLTRB(20, 80, 20, 40),
           child: StreamBuilder(
             stream: bloc.match,
             initialData: NewMatch.empty(),
@@ -78,7 +80,7 @@ class _MatchInProgressPageContentState
                     ),
                     Text(match.status.toString()),
                     MatchInProgressScore(match),
-                    MatchInProgressTimer(),
+                    const MatchInProgressTimer(),
                     MatchInProgressControls(match),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -88,7 +90,7 @@ class _MatchInProgressPageContentState
                     ),
                     ElevatedButton(
                       onPressed: () => Navigator.of(context).pop(),
-                      child: Text('Back'),
+                      child: const Text('Back'),
                     ),
                   ],
                 ),
@@ -111,7 +113,7 @@ class _MatchInProgressPageContentState
 class MatchInProgressControls extends StatelessWidget {
   final NewMatch match;
 
-  MatchInProgressControls(this.match);
+  const MatchInProgressControls(this.match, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +124,7 @@ class MatchInProgressControls extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: () => newMatchBloc.saveMatch(),
-                child: Text('Save'),
+                child: const Text('Save'),
               )
             ],
           ),
@@ -133,7 +135,7 @@ class MatchInProgressControls extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: () => newMatchBloc.resume(),
-                child: Text('Resume'),
+                child: const Text('Resume'),
               )
             ],
           ),
@@ -144,7 +146,7 @@ class MatchInProgressControls extends StatelessWidget {
             children: [
               ElevatedButton(
                 onPressed: () => newMatchBloc.pause(),
-                child: Text('Pause'),
+                child: const Text('Pause'),
               )
             ],
           ),
@@ -156,18 +158,15 @@ class MatchInProgressControls extends StatelessWidget {
 class MatchInProgressScore extends StatelessWidget {
   final NewMatch match;
 
-  MatchInProgressScore(this.match);
+  const MatchInProgressScore(this.match, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Text(
-          'Score: ' +
-              match.teamA.score.toString() +
-              ':' +
-              match.teamB.score.toString(),
-          style: TextStyle(
+          'Score: ${match.teamA.score}:${match.teamB.score}',
+          style: const TextStyle(
             fontSize: 26,
             fontWeight: FontWeight.bold,
           ),
@@ -178,6 +177,8 @@ class MatchInProgressScore extends StatelessWidget {
 }
 
 class MatchInProgressTimer extends StatelessWidget {
+  const MatchInProgressTimer({super.key});
+
   @override
   Widget build(BuildContext context) {
     final bloc = NewMatchBlocProvider.of(context);
@@ -195,7 +196,7 @@ class MatchInProgressTimer extends StatelessWidget {
 class MatchInProgressPlayerTile extends StatelessWidget {
   final User user;
 
-  MatchInProgressPlayerTile(this.user);
+  const MatchInProgressPlayerTile(this.user, {super.key});
 
   @override
   Widget build(BuildContext context) {

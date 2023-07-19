@@ -11,6 +11,8 @@ import 'package:keepscore/pages/profile_page.dart';
 import 'package:keepscore/pages/splash_page.dart';
 
 class AppFrame extends StatelessWidget {
+  const AppFrame({super.key});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -19,15 +21,15 @@ class AppFrame extends StatelessWidget {
       theme: BASE_THEME,
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
-        '/home': (context) => HomePage(),
-        '/profile': (context) => ProfilePage(),
-        '/new/players': (context) => NewMatchPlayersPage(),
-        MatchInProgressPage.routeName: (context) => MatchInProgressPage(),
-        MatchDetailsPage.routeName: (context) => MatchDetailsPage(),
+        '/home': (context) => const HomePage(),
+        '/profile': (context) => const ProfilePage(),
+        '/new/players': (context) => const NewMatchPlayersPage(),
+        MatchInProgressPage.routeName: (context) => const MatchInProgressPage(),
+        MatchDetailsPage.routeName: (context) => const MatchDetailsPage(),
       },
       onGenerateRoute: (_) => SplashPage.route(),
       home: MatchesProvider(
-        child: HomePage(),
+        child: const HomePage(),
       ),
       debugShowCheckedModeBanner: false,
     );
