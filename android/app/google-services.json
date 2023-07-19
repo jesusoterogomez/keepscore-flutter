@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "582672140914",
+    "firebase_url": "https://getkeepscore.firebaseio.com",
+    "project_id": "getkeepscore",
+    "storage_bucket": "getkeepscore.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:582672140914:android:d1a977e5212c6052c090eb",
+        "android_client_info": {
+          "package_name": "com.example.next"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "582672140914-s9joo1o3fbfd4v59b6nbk19k5maqi862.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBN--IyWyTPTPgGhsPbGkmYo-1rYctubVA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "582672140914-s9joo1o3fbfd4v59b6nbk19k5maqi862.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "582672140914-2sre5bh00ijfajipj3j2h829sauqat1r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.keepscore"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
